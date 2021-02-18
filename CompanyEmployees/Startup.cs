@@ -12,6 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CompanyEmployees.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
+using System.IO;
+using NLog;
 
 namespace CompanyEmployees
 {
@@ -19,6 +21,8 @@ namespace CompanyEmployees
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(),
+                "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -27,8 +31,10 @@ namespace CompanyEmployees
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureCors(); //extension method from ServiceExtensions
-            services.ConfigureIISIntegration(); //extension method from ServiceExtensions
+            //extension methods from ServiceExtensions
+            services.ConfigureCors(); 
+            services.ConfigureIISIntegration(); 
+            services.ConfigureLoggerService();
 
             services.AddControllers();
         }
