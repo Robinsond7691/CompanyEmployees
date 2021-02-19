@@ -16,3 +16,4 @@
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
 2021-02-19 12:26:18.5298 INFO Company with id: 3d490a70-94ce-4d15-9494-5248280c2ce2 doesn't exist in the database
+2021-02-19 12:50:06.1695 INFO Company with id: c9d4c053-49b6-410c-bc78-2d54a9991879 doesn't exist in the database.
