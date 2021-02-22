@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using System.IO;
 using NLog;
 using Contracts;
+using CompanyEmployees.ActionFilters;
 
 namespace CompanyEmployees
 {
@@ -38,6 +39,7 @@ namespace CompanyEmployees
             services.ConfigureLoggerService();
             services.ConfigureSqlContext(Configuration);
             services.ConfigureRepositoryManager();
+            services.AddScoped<ValidationFilterAttribute>();
 
             services.AddAutoMapper(typeof(Startup));
 

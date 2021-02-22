@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CompanyEmployees.ActionFilters;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
@@ -69,22 +70,11 @@ namespace CompanyEmployees.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateEmployeeForCompany(Guid companyId, [FromBody]
         EmployeeForCreationDto employee)
         {
-            //check if EmployeeForCreationDto is null
-            if(employee == null)
-            {
-                _logger.LogError("EmployeeForCreationDto object sent from client is null.");
-                return BadRequest("EmployeeForCreationDto object is null.");
-            }
-
-            //Return 422 Unprocessable entity in case of bad model state
-            if (!ModelState.IsValid)
-            {
-                _logger.LogError("Invalid model state for the EmployeeForCreationDto object");
-                return UnprocessableEntity(ModelState);
-            }
+            //validation of model done by validation filter
 
             //find company
             var company = await _repository.Company.GetCompanyAsync(companyId, trackChanges: false);
@@ -132,22 +122,11 @@ namespace CompanyEmployees.Controllers
         }
 
         [HttpPut("{id}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateEmployeeForCompany(Guid companyId, Guid id, [FromBody]
         EmployeeForUpdateDto employee)
         {
-            //confirm employee is not null
-            if (employee == null)
-            {
-                _logger.LogError("EmployeeForUpdateDto object sent from client is null.");
-                return BadRequest("EmployeeForUpdateDto object is null");
-            }
-
-            //validate Model
-            if (!ModelState.IsValid)
-            {
-                _logger.LogError("Invalid model state for the EmployeeForUpdateDto object");
-                return UnprocessableEntity(ModelState);
-            }
+            //validation of model done by validation filter
 
             //Find company. Confirm company exists
             var company = await _repository.Company.GetCompanyAsync(companyId, trackChanges: false);

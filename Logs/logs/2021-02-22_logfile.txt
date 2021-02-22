@@ -108,3 +108,5 @@ Error Number:515,State:2,Class:16
 2021-02-22 14:04:31.1896 ERROR Invalid model state for the patch document
 2021-02-22 14:05:32.2779 ERROR Invalid model state for the patch document
 2021-02-22 14:05:45.0773 ERROR Invalid model state for the patch document
+2021-02-22 17:21:45.4600 ERROR Invalid model state for the object. Controller: Companies, action: CreateCompany
+2021-02-22 17:25:41.6323 ERROR Invalid model state for the object. Controller: Employees, action: CreateEmployeeForCompany
