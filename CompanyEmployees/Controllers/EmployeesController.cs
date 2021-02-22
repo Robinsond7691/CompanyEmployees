@@ -142,6 +142,13 @@ namespace CompanyEmployees.Controllers
                 return BadRequest("EmployeeForUpdateDto object is null");
             }
 
+            //validate Model
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError("Invalid model state for the EmployeeForUpdateDto object");
+                return UnprocessableEntity(ModelState);
+            }
+
             //Find company. Confirm company exists
             var company = _repository.Company.GetCompany(companyId, trackChanges: false);
             if (company == null)
@@ -194,8 +201,16 @@ namespace CompanyEmployees.Controllers
             //convert entity to EmployeeForUpdateDto
             var employeeToPatch = _mapper.Map<EmployeeForUpdateDto>(employeeEntity);
 
-            //apply patch to Dto
-            patchDoc.ApplyTo(employeeToPatch);
+            //apply patch to Dto, then validate
+            patchDoc.ApplyTo(employeeToPatch, ModelState);
+
+            TryValidateModel(employeeToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError("Invalid model state for the patch document");
+                return UnprocessableEntity(ModelState);
+            }
 
             //map Dto object to Entity and save
             _mapper.Map(employeeToPatch, employeeEntity);

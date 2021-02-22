@@ -151,6 +151,13 @@ namespace CompanyEmployees.Controllers
                 return BadRequest("CompanyForUpdateDto object is null");
             }
 
+            //Validate Model
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError("Invalid model state for the CompanyForUpdateDto object");
+                return UnprocessableEntity(ModelState);
+            }
+
             //get company. Confirm company exists
             var companyEntity = _repository.Company.GetCompany(id, trackChanges: true);
             if (companyEntity == null)

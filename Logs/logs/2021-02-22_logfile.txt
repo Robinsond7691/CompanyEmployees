@@ -102,3 +102,9 @@ Error Number:515,State:2,Class:16
 2021-02-22 13:31:41.2178 ERROR Invalid model state for the EmployeeForCreationDto object
 2021-02-22 13:33:10.5027 ERROR Invalid model state for the EmployeeForCreationDto object
 2021-02-22 13:41:22.6278 ERROR Invalid model state for the EmployeeForCreationDto object
+2021-02-22 13:51:24.4442 ERROR Invalid model state for the EmployeeForUpdateDto object
+2021-02-22 13:59:28.3359 ERROR Invalid model state for the patch document
+2021-02-22 14:04:20.7591 ERROR Invalid model state for the patch document
+2021-02-22 14:04:31.1896 ERROR Invalid model state for the patch document
+2021-02-22 14:05:32.2779 ERROR Invalid model state for the patch document
+2021-02-22 14:05:45.0773 ERROR Invalid model state for the patch document
