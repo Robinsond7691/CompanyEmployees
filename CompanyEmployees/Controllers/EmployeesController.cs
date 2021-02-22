@@ -3,6 +3,7 @@ using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -156,5 +157,44 @@ namespace CompanyEmployees.Controllers
             return NoContent();
         }
 
+        [HttpPatch("{id}")]
+        public IActionResult PartiallyUpdateEmployeeForCompany(Guid companyId, Guid id, 
+            [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDoc)
+        {
+            //confirm patchDoc is not null
+            if (patchDoc == null)
+            {
+                _logger.LogError("patchDoc object sent from client is null.");
+                return BadRequest("patchDoc object is null");
+            }
+
+            //Find company. Confirm company is not null
+            var company = _repository.Company.GetCompany(companyId, trackChanges: false);
+            if (company == null)
+            {
+                _logger.LogInfo($"Company with id: {companyId} doesn't exist in the database.");
+            return NotFound();
+            }
+
+            //Find employee. Confirm employee exists
+            var employeeEntity = _repository.Employee.GetEmployee(companyId, id, trackChanges: true);
+            if (employeeEntity == null)
+            {
+                _logger.LogInfo($"Employee with id: {id} doesn't exist in the database.");
+                return NotFound();
+            }
+
+            //convert entity to EmployeeForUpdateDto
+            var employeeToPatch = _mapper.Map<EmployeeForUpdateDto>(employeeEntity);
+
+            //apply patch to Dto
+            patchDoc.ApplyTo(employeeToPatch);
+
+            //map Dto object to Entity and save
+            _mapper.Map(employeeToPatch, employeeEntity);
+
+            _repository.Save();
+            return NoContent();
+        }
     }
 }
