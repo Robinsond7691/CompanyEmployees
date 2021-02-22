@@ -97,24 +97,11 @@ namespace CompanyEmployees.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ServiceFilter(typeof(ValidateEmployeeForCompanyExistsAttribute))]
         public async Task<IActionResult> DeleteEmployeeForCompany(Guid companyId, Guid id)
         {
-            //Get company. Confirm company exists. 
-            var company = await _repository.Company.GetCompanyAsync(companyId, trackChanges: false);
-            if (company == null)
-            {
-                _logger.LogInfo($"Company with id: {companyId} doesn't exist in the database.");
-                return NotFound("Company not found.");
-            }
-
-            //Find employee. Confirm employee exists. 
-            var employeeForCompany = await _repository.Employee.GetEmployeeAsync(companyId, id,
-                trackChanges: false);
-            if (employeeForCompany == null)
-            {
-                _logger.LogInfo($"Employee with id: {id} doesn't exist in the database.");
-                return NotFound("Employee not found");
-            }
+            //Service Action filter confirms if company and employee exist
+            var employeeForCompany = HttpContext.Items["employee"] as Employee;
 
             _repository.Employee.DeleteEmployee(employeeForCompany);
            await _repository.SaveAsync();
@@ -123,26 +110,14 @@ namespace CompanyEmployees.Controllers
 
         [HttpPut("{id}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidateEmployeeForCompanyExistsAttribute))]
         public async Task<IActionResult> UpdateEmployeeForCompany(Guid companyId, Guid id, [FromBody]
         EmployeeForUpdateDto employee)
         {
             //validation of model done by validation filter
 
-            //Find company. Confirm company exists
-            var company = await _repository.Company.GetCompanyAsync(companyId, trackChanges: false);
-            if (company == null)
-            {
-                _logger.LogInfo($"Company with id: {companyId} doesn't exist in the database.");
-                return NotFound();
-            }
-
-            //Get employee entity. Confirm employee exists
-            var employeeEntity = await _repository.Employee.GetEmployeeAsync(companyId, id, trackChanges: true);
-            if (employeeEntity == null)
-            {
-                _logger.LogInfo($"Employee with id: {id} doesn't exist in the database.");
-                return NotFound();
-            }
+            //Action filter confirms if company and employee exist
+            var employeeEntity = HttpContext.Items["employee"] as Employee;
 
             //map employee to entity and save
             _mapper.Map(employee, employeeEntity);
@@ -151,6 +126,7 @@ namespace CompanyEmployees.Controllers
         }
 
         [HttpPatch("{id}")]
+        [ServiceFilter(typeof(ValidateEmployeeForCompanyExistsAttribute))]
         public async Task<IActionResult> PartiallyUpdateEmployeeForCompany(Guid companyId, Guid id, 
         [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDoc)
         {
@@ -161,21 +137,8 @@ namespace CompanyEmployees.Controllers
                 return BadRequest("patchDoc object is null");
             }
 
-            //Find company. Confirm company is not null
-            var company = await _repository.Company.GetCompanyAsync(companyId, trackChanges: false);
-            if (company == null)
-            {
-                _logger.LogInfo($"Company with id: {companyId} doesn't exist in the database.");
-            return NotFound();
-            }
-
-            //Find employee. Confirm employee exists
-            var employeeEntity = await _repository.Employee.GetEmployeeAsync(companyId, id, trackChanges: true);
-            if (employeeEntity == null)
-            {
-                _logger.LogInfo($"Employee with id: {id} doesn't exist in the database.");
-                return NotFound();
-            }
+            //Action filter confirms if company and employee exist
+            var employeeEntity = HttpContext.Items["employee"] as Employee;
 
             //convert entity to EmployeeForUpdateDto
             var employeeToPatch = _mapper.Map<EmployeeForUpdateDto>(employeeEntity);
