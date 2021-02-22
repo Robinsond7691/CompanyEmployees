@@ -1,1 +1,4 @@
 2021-02-22 09:52:23.3093 INFO Company with id: 53a1237a-3ed3-4462-b9f0-5a7bb1056a33 doesn't exist in the database.
+2021-02-22 10:42:05.3156 INFO Company with id: 0ad5b971-ff51-414d-af01-34187e407557 doesn't exist in the database.
+2021-02-22 10:42:53.5295 INFO Company with id: 0ad5b971-ff51-414d-af01-34187e407557 doesn't exist in the database.
+2021-02-22 10:43:52.7042 INFO Employee with id: af60cdb6-5690-4116-29f1-08d8d741fd6e doesn't exist in the database.
