@@ -100,3 +100,5 @@ Error Number:515,State:2,Class:16
    at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
 2021-02-22 13:30:35.3405 ERROR Invalid model state for the EmployeeForCreationDto object
 2021-02-22 13:31:41.2178 ERROR Invalid model state for the EmployeeForCreationDto object
+2021-02-22 13:33:10.5027 ERROR Invalid model state for the EmployeeForCreationDto object
+2021-02-22 13:41:22.6278 ERROR Invalid model state for the EmployeeForCreationDto object
