@@ -215,7 +215,7 @@ namespace CompanyEmployees.Controllers
             //map Dto object to Entity and save
             _mapper.Map(employeeToPatch, employeeEntity);
 
-            await _repository.Save();
+            await _repository.SaveAsync();
             return NoContent();
         }
 
