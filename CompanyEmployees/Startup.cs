@@ -16,6 +16,8 @@ using System.IO;
 using NLog;
 using Contracts;
 using CompanyEmployees.ActionFilters;
+using Entities.DataTransferObjects;
+using Repository.DataShaping;
 
 namespace CompanyEmployees
 {
@@ -44,6 +46,9 @@ namespace CompanyEmployees
             services.AddScoped<ValidationFilterAttribute>();
             services.AddScoped<ValidateCompanyExistsAttribute>();
             services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
+            
+            //DataShaper
+            services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
 
 
             services.AddAutoMapper(typeof(Startup));
