@@ -49,6 +49,7 @@ namespace CompanyEmployees
             services.ConfigureResponseCaching();
             services.ConfigureHttpCacheHeaders();
             services.ConfigureRateLimitingOptions();
+            services.AddAuthentication();
             services.ConfigureIdentity();
 
 
