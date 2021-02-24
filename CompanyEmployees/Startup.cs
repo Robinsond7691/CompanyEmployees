@@ -41,6 +41,8 @@ namespace CompanyEmployees
             services.ConfigureLoggerService();
             services.ConfigureSqlContext(Configuration);
             services.ConfigureRepositoryManager();
+            services.ConfigureVersioning();
+
 
             //filter attributes
             services.AddScoped<ValidationFilterAttribute>();
@@ -50,9 +52,7 @@ namespace CompanyEmployees
             //DataShaper
             services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
 
-
             services.AddAutoMapper(typeof(Startup));
-
 
             services.AddControllers(config =>
             {
