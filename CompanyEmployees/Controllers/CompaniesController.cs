@@ -56,6 +56,13 @@ namespace CompanyEmployees.Controllers
             }
         }
 
+        [HttpOptions]
+        public IActionResult GetCompaniesOptions()
+        {
+            Response.Headers.Add("Allow", "GET, OPTIONS, POST");
+            return Ok();
+        }
+
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateCompany([FromBody]CompanyForCreationDto
@@ -156,6 +163,8 @@ namespace CompanyEmployees.Controllers
 
             return NoContent();
         }
+
+        
 
     }
 }
