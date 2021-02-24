@@ -1,0 +1,2 @@
+2021-02-24 11:21:24.8970 INFO Company with id: 3d490a70-94ce-4d15-9494-5248280c2ce3 doesn't exist in the database
+2021-02-24 13:11:24.6092 INFO Company with id: 3d490a70-94ce-4d15-9494-5248280c2ce3 doesn't exist in the database.
