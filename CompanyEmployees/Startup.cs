@@ -49,6 +49,8 @@ namespace CompanyEmployees
             services.ConfigureResponseCaching();
             services.ConfigureHttpCacheHeaders();
             services.ConfigureRateLimitingOptions();
+            services.ConfigureIdentity();
+
 
 
             //filter attributes
@@ -109,7 +111,8 @@ namespace CompanyEmployees
             app.UseIpRateLimiting();
 
             app.UseRouting();
-
+            
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
