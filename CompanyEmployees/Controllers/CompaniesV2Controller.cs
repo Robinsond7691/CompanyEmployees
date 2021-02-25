@@ -12,6 +12,7 @@ namespace CompanyEmployees.Controllers
     //[Route("api/{v:apiversion}/companies")] allows versioning in routers
     [Route("api/companies")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "v2")]
     public class CompaniesV2Controller : ControllerBase
     {
         private readonly IRepositoryManager _repository;

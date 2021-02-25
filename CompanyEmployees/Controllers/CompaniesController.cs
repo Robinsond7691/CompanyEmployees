@@ -19,6 +19,7 @@ namespace CompanyEmployees.Controllers
     [ApiVersion("1.0")]
     [Route("api/companies")]
     [ApiController]
+    [ApiExplorerSettings(GroupName="v1")]
     //[ResponseCache(CacheProfileName = "120SecondsDuration")] the marvin library adds it for us
     public class CompaniesController : ControllerBase
     {
