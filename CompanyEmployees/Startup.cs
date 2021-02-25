@@ -19,6 +19,7 @@ using CompanyEmployees.ActionFilters;
 using Entities.DataTransferObjects;
 using Repository.DataShaping;
 using AspNetCoreRateLimit;
+using CompanyEmployees.Utility;
 
 namespace CompanyEmployees
 {
@@ -39,6 +40,7 @@ namespace CompanyEmployees
             services.AddHttpContextAccessor();
             services.AddMemoryCache();
 
+
             //extension methods from ServiceExtensions
             services.ConfigureCors(); 
             services.ConfigureIISIntegration(); 
@@ -53,6 +55,7 @@ namespace CompanyEmployees
             services.ConfigureIdentity();
             services.ConfigureJWT(Configuration);
 
+            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
 
 
             //filter attributes
