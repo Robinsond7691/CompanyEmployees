@@ -51,6 +51,7 @@ namespace CompanyEmployees
             services.ConfigureRateLimitingOptions();
             services.AddAuthentication();
             services.ConfigureIdentity();
+            services.ConfigureJWT(Configuration);
 
 
 
